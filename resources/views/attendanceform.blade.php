@@ -9,7 +9,7 @@
 
 </head>
 <body style="background-color: lightblue;">
-    <div class="container">
+    <div class="container" style="background-color:#095868;  border-radius: 25px; width: 35rem ;">
 
         <h2 style="margin-top : 5rem ; text-align:center;" >Sign Up for Account</h2>
         <form action="/register" method="POST">
@@ -51,8 +51,10 @@
                 
             </div>
             
-            
-            <button type="submit" class="btn btn-primary" style="margin-top : 3rem ;">Submit</button>
+            <div  style="display:flex ; justify-content:center;">
+
+                <button type="submit" class="btn btn-primary" style="margin : 3rem;">Submit</button>
+            </div>
         </form>
     </div>
 
