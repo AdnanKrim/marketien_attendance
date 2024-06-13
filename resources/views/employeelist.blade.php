@@ -36,38 +36,43 @@
                 <a class="nav-link active" href="#">Employee</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Attendance</a>
+                <a class="nav-link" href="/attendance">Attendance</a>
             </li>
         </ul>
     </div>
     <div class="content">
-        <button class="btn btn-danger logout-btn">Logout</button>
+        {{-- <button class="btn btn-danger logout-btn">Logout</button> --}}
+        <a class="btn btn-danger logout-btn" href="/logout">Logout</a>
         <h2>Employee List</h2>
         <table class="table">
             <thead>
                 <tr>
+                    <th scope="col">#</th>
                     <th>EmployeeId</th>
                     <th>EmployeeName</th>
                     <th>Action</th>
                 </tr>
             </thead>
             <tbody>
+                @foreach ($employee as $emp)
                 <tr>
-                    <td>1</td>
-                    <td>John Doe</td>
+                    <th scope="row">{{$loop->iteration}}</th>
+                    <td>{{$emp->employee_id}}</td>
+                    <td>{{$emp->name}}</td>
                     <td>
-                        <button class="btn btn-info btn-sm">Details</button>
-                        <button class="btn btn-danger btn-sm">Delete</button>
+                        <a href="/detail/{{$emp['id']}}" class="btn btn-success btn-sm">
+                            <i class="fa fa-edit">Details</i>
+                        </a>
+                        <a href="/delete/{{$emp['id']}}" class="btn btn-danger btn-sm">
+                            <i class="fa fa-trash">delete</i>
+                        </a>
+
                     </td>
+                    
                 </tr>
-                <tr>
-                    <td>2</td>
-                    <td>Jane Smith</td>
-                    <td>
-                        <button class="btn btn-info btn-sm">Details</button>
-                        <button class="btn btn-danger btn-sm">Delete</button>
-                    </td>
-                </tr>
+                @endforeach
+                
+                
                 <!-- Add more rows as needed -->
             </tbody>
         </table>

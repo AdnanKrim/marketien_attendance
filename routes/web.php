@@ -2,6 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\EmployeeController;
+use App\Models\Employee;
+use App\Models\Attendance;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,7 +18,8 @@ use App\Http\Controllers\UserController;
 */
 
 Route::get('/', function () {
-    return view('attendanceform');
+    $data = Employee::select('name')->get();
+    return view('attendanceform',['names'=>$data]);
 });
 Route::get('/register', function () {
     return view('registration');
@@ -25,15 +29,22 @@ Route::get('/system', function () {
     return view('adminlogin');
 });
 Route::post('/check',[UserController::class,'userCheck']);
+Route::post('/employee-register',[EmployeeController::class,'employeeRegister']);
+Route::post('/get-attendance',[EmployeeController::class,'getAttendace']);
 
 
 Route::group(['name'=>'user', 'middleware'=>'userDetail'], function(){
+    Route::get('logout',[UserController::class,'logout']);
     Route::get('/admin', function () {
-        return view('employeelist');
+        $data = Employee::all();
+        return view('employeelist',['employee'=>$data]);
     });
+    Route::get('/detail/{id}',[EmployeeController::class,'employeeDetail']);
+    Route::get('/delete/{id}',[EmployeeController::class,'delete']);
 
     Route::get('/attendance', function () {
-        return view('attendancelist');
+        $data = Attendance::orderBy('created_at', 'desc')->get();
+        return view('attendancelist',['attends'=>$data]);
     });
     
 

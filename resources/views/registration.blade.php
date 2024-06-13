@@ -22,7 +22,7 @@
                     <div class="card-body" style="">
                         <img src="images/Marketien-Logo.png" class="img
                         " alt="">
-                        <form action="/register" method="POST">
+                        <form action="/employee-register" method="POST">
                             @csrf
                             <div style="background-color:green;">
                                 @if (Session::get('success'))
@@ -40,11 +40,13 @@
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Name</label>
                                 <input type="text" name="name" class="form-control" placeholder="Enter name">
+                                <span style="color:red;">@error('name'){{ $message }}@enderror</span>
 
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Employee ID</label>
                                 <input type="number" name="employee_id" class="form-control">
+                                <span style="color:red;">@error('employee_id'){{ $message }}@enderror</span>
 
                             </div>
 

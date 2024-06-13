@@ -26,4 +26,10 @@ class UserController extends Controller
             return back()->with('fail','No account for this email');
         }
     }
+    public function logout(){
+      if(session()->has('admin')){
+        session()->pull('admin');
+        return redirect('system');
+      }
+    }
 }

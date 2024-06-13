@@ -22,7 +22,7 @@
                     <div class="card-body" style="">
                         <img src="images/Marketien-Logo.png" class="img
                         " alt="">
-                        <form action="/register" method="POST">
+                        <form action="/get-attendance" method="POST">
                             @csrf
                             <div style="background-color:green;">
                                 @if (Session::get('success'))
@@ -31,19 +31,22 @@
                                     </div>
                                 @endif
 
-                                @if (Session::get('Fail'))
+                                @if (Session::get('fail'))
                                     <div style="color: red;">
-                                        {{ Session::get('Fail') }}
+                                        {{ Session::get('fail') }}
                                     </div>
                                 @endif
                             </div>
                             <div class="input-group mb-3" style="margin : 5rem 0rem ;">
                                 <label class="input-group-text" for="inputGroupSelect01">Name</label>
-                                <select class="form-select" id="inputGroupSelect01">
+                                <select class="form-select" id="inputGroupSelect01" name="name">
                                     <option selected>select your name</option>
-                                    <option value="1">One</option>
-                                    <option value="2">Two</option>
-                                    <option value="3">Three</option>
+                                    @foreach ($names as $name)
+                                    <option value="{{$name->name}}">{{$name->name}}</option>
+                                    @endforeach
+                                    
+                                    {{-- <option value="2">Two</option>
+                                    <option value="3">Three</option> --}}
                                 </select>
                             </div>
 
@@ -52,14 +55,14 @@
                                 <label for="radiobutton" style="color: rgb(24, 24, 22); font-size: 30px"> Log
                                     Type:</label>
                                 <div class="form-check form-check-inline" style="margin-left : 2rem ;">
-                                    <input class="form-check-input" type="radio" name="account_type" id="inlineRadio1"
-                                        value="Invidual">
+                                    <input class="form-check-input" type="radio" name="log_type" id="inlineRadio1"
+                                        value="login">
                                     <label class="form-check-label" for="inlineRadio1"
                                         style="color: rgb(30, 30, 23); font-size: 20px">login</label>
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="account_type" id="inlineRadio2"
-                                        value="Business">
+                                    <input class="form-check-input" type="radio" name="log_type" id="inlineRadio2"
+                                        value="logout">
                                     <label class="form-check-label" for="inlineRadio2"
                                         style="color: rgb(26, 26, 22); font-size: 20px">logout</label>
                                 </div>
@@ -78,8 +81,9 @@
         </div>
         <div style="display:flex ; justify-content:center; margin-top: 5rem ;">
 
-            <button type="submit" class="btn btn-secondary" style=""
-                class="btn">Registration</button>
+            {{-- <button type="submit" class="btn btn-secondary" style=""
+                class="btn">Registration</button> --}}
+                <a href="/register" class="btn btn-secondary">Registration</a>
         </div>
     </div>
 

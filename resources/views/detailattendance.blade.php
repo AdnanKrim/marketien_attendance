@@ -35,7 +35,7 @@
                 <a class="nav-link active" href="/admin">Employee</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Attendance</a>
+                <a class="nav-link" href="/attendance">Attendance</a>
             </li>
         </ul>
     </div>
@@ -54,22 +54,21 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($attends as $attend)
+                @foreach ($details as $detail)
                     
                 <tr>
-                    <th scope="col">#</th>
-                    <td>{{$attend->log_type}}</td>
-                    <td>{{$attend->date}}</td>
-                    <td>{{$attend->time}}</td>
+                    <th scope="row">{{$loop->iteration}}</th>
+                    <td>{{$detail->log_type}}</td>
+                    <td>{{$detail->date}}</td>
+                    <td>{{$detail->time}}</td>
                     <?php
-                    $employee = \App\Models\Employee::where('id',$attend->user_id)->first();
+                    $employee = \App\Models\Employee::where('id',$detail->user_id)->first();
                     ?>
                     <td>{{$employee->name}}</td>
                     
-                    
                 </tr>
-                <!-- Add more rows as needed -->
                 @endforeach
+                <!-- Add more rows as needed -->
             </tbody>
         </table>
     </div>

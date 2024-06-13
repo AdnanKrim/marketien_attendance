@@ -18,6 +18,6 @@ use App\Http\Controllers\EmployeeController;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
-Route::get('/get-device',[EmployeeController::class,'getDevice']);
-Route::post('/get-attendance',[EmployeeController::class,'getAttendace']);
+// Route::get('/get-device',[EmployeeController::class,'getDevice']);
+
 
