@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('name')->nullable();
             $table->integer('employee_id')->nullable();
             $table->string('user_ip')->nullable();
-            $table->string('user_mac')->nullable();
+            $table->string('user_device')->nullable();
             $table->timestamps();
         });
     }

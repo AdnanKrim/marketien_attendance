@@ -32,7 +32,7 @@
                                 @endif
 
                                 @if (Session::get('fail'))
-                                    <div style="color: red;">
+                                    <div style="color: rgb(238, 255, 0);">
                                         {{ Session::get('fail') }}
                                     </div>
                                 @endif

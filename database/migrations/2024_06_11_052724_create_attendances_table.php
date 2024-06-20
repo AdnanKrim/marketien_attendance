@@ -20,7 +20,7 @@ return new class extends Migration
             $table->time('time')->nullable();
             $table->string('log_type')->nullable();
             $table->string('user_ip')->nullable();
-            $table->string('user_mac')->nullable();
+            $table->string('user_device')->nullable();
             $table->timestamps();
         });
     }
