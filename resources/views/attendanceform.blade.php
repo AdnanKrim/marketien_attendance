@@ -18,7 +18,7 @@
         <div class="row">
             <div class="col-md-6 mx-auto">
                 <div class="card" style="margin-top: 3rem;">
-                    <div class="card-header">Marketien Attendane Form</div>
+                    <div class="card-header">Marketien Attendance Form</div>
                     <div class="card-body" style="">
                         <img src="images/Marketien-Logo.png" class="img
                         " alt="">
@@ -42,13 +42,20 @@
                                 <select class="form-select" id="inputGroupSelect01" name="name">
                                     <option selected>select your name</option>
                                     @foreach ($names as $name)
-                                    <option value="{{$name->name}}">{{$name->name}}</option>
+                                        <option value="{{ $name->name }}">{{ $name->name }}</option>
                                     @endforeach
-                                    
+
                                     {{-- <option value="2">Two</option>
                                     <option value="3">Three</option> --}}
                                 </select>
+                                
                             </div>
+                
+                                <span style="color:red;">
+                                    @error('name')
+                                        {{ $message }}
+                                    @enderror
+                                </span>
 
 
                             <div class="form-group" style="margin : 2rem ;">
@@ -66,8 +73,13 @@
                                     <label class="form-check-label" for="inlineRadio2"
                                         style="color: rgb(26, 26, 22); font-size: 20px">logout</label>
                                 </div>
-
+                                
                             </div>
+                            <span style="color:red;">
+                                @error('log_type')
+                                    {{ $message }}
+                                @enderror
+                            </span>
 
                             <div style="display:flex ; justify-content:center;">
 
@@ -79,12 +91,11 @@
                 </div>
             </div>
         </div>
-        <div style="display:flex ; justify-content:center; margin-top: 5rem ;">
+        {{-- <div style="display:flex ; justify-content:center; margin-top: 5rem ;">
 
-            {{-- <button type="submit" class="btn btn-secondary" style=""
-                class="btn">Registration</button> --}}
-                <a href="/register" class="btn btn-secondary">Registration</a>
-        </div>
+            
+            <a href="/register" class="btn btn-secondary">Registration</a>
+        </div> --}}
     </div>
 
 

@@ -1,4 +1,4 @@
-.img{
+/* .img{
     width: 100%
     
 }
@@ -18,4 +18,253 @@
 
 @media only screen and (max-width: 300px){
     
+} */
+
+/* gpt 1st changes */
+/* body {
+    background: linear-gradient(to bottom right, #095868, #05819a);
+    font-family: Arial, sans-serif;
+    color: #fff;
 }
+
+.container {
+    margin-top: 5%;
+}
+
+.card {
+    background-color: rgba(255, 255, 255, 0.9);
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.card-header {
+    background-color: #05819a;
+    color: white;
+    font-weight: bold;
+    text-align: center;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.card-body {
+    padding: 2rem;
+}
+
+.img {
+    width: 50%;
+    display: block;
+    margin: 0 auto 2rem auto;
+}
+
+.input-group-text {
+    background-color: #05819a;
+    color: white;
+    border: none;
+}
+
+.form-select {
+    border: 1px solid #05819a;
+}
+
+.form-check-label {
+    color: #095868;
+}
+
+.btn-primary {
+    background-color: #05819a;
+    border: none;
+    padding: 0.75rem 2rem;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: #095868;
+}
+
+span {
+    color: red;
+    font-size: 0.9rem;
+}
+
+@media only screen and (max-width: 600px) {
+    .container {
+        margin-top: 10%;
+    }
+    
+    .card-body {
+        padding: 1rem;
+    }
+
+    .input-group {
+        margin: 2rem 0;
+    }
+
+    .form-group {
+        margin: 1rem 0;
+    }
+}
+
+@media only screen and (max-width: 300px) {
+    .card-body {
+        padding: 0.5rem;
+    }
+
+    .input-group {
+        margin: 1rem 0;
+    }
+
+    .form-group {
+        margin: 0.5rem 0;
+    }
+} */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
+body {
+    background: linear-gradient(to left, #0e859d, #04505f);
+    font-family: 'Roboto', sans-serif;
+    color: #fff;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    margin-top: 5%;
+}
+
+.card {
+    background-color: rgba(255, 255, 255, 0.9);
+    border: none;
+    border-radius: 10px;
+    box-shadow: 10px 20px 30px rgba(0, 0, 0, 0.2);
+    animation: fadeIn 1s ease-in-out;
+}
+
+.card-header {
+    background-color: #05819a;
+    color: white;
+    font-weight: bold;
+    text-align: center;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    font-size: 1.5rem;
+    padding: 1rem;
+}
+
+.card-body {
+    padding: 2rem;
+}
+
+.img {
+    width: 50%;
+    display: block;
+    margin: 0 auto 2rem auto;
+}
+
+.input-group-text {
+    background-color: #05819a;
+    color: white;
+    border: none;
+}
+
+.form-select {
+    border: 1px solid #05819a;
+    transition: border-color 0.3s;
+}
+
+.form-select:focus {
+    border-color: #095868;
+    box-shadow: 0 0 5px rgba(9, 88, 104, 0.5);
+}
+
+.form-check-label {
+    color: #095868;
+}
+
+.btn-primary {
+    background-color: #05819a;
+    border: none;
+    padding: 0.75rem 2rem;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: #095868;
+    transform: scale(1.05);
+}
+
+span {
+    color: red;
+    font-size: 0.9rem;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .container {
+        margin-top: 10%;
+    }
+    
+    .card-body {
+        padding: 1rem;
+    }
+
+    .input-group {
+        margin: 2rem 0;
+    }
+
+    .form-group {
+        margin: 1rem 0;
+    }
+
+    .img {
+        width: 70%;
+    }
+
+    .card-header {
+        font-size: 1.25rem;
+    }
+
+    .btn-primary {
+        padding: 0.5rem 1.5rem;
+    }
+}
+
+@media only screen and (max-width: 300px) {
+    .card-body {
+        padding: 0.5rem;
+    }
+
+    .input-group {
+        margin: 1rem 0;
+    }
+
+    .form-group {
+        margin: 0.5rem 0;
+    }
+
+    .img {
+        width: 80%;
+    }
+
+    .card-header {
+        font-size: 1rem;
+    }
+
+    .btn-primary {
+        padding: 0.5rem 1rem;
+    }
+}
+
+

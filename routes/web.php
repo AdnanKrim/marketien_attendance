@@ -5,6 +5,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\EmployeeController;
 use App\Models\Employee;
 use App\Models\Attendance;
+use Illuminate\Support\Facades\Artisan;
 
 /*
 |--------------------------------------------------------------------------
@@ -50,3 +51,8 @@ Route::group(['name'=>'user', 'middleware'=>'userDetail'], function(){
 
     
 });
+Route::get('/clear-cache', function() {
+    $exitCode = Artisan::call('optimize:clear');
+    return "cache cleared";
+});
+

@@ -47,12 +47,17 @@ class EmployeeController extends Controller
     }
     public function getAttendace(Request $req)
     {
+        $req->validate([
+            'name' => 'required|exists:employees,name',
+            'log_type' => 'required'
+
+        ]);
         $data = new Attendance();
         // $macAddress = $this->getMacAddress();
         $deviceInfo = Request()->userAgent();
         $user = Employee::where('name', $req->name)->first();
-        $attend = Attendance::where('user_id', $user->id)->where('log_type', $req->log_type)->latest('time')->first();
-        if (!$attend || $attend->created_at < Carbon::now()->subDay(1)->toDateTimeString()) {
+        $attend = Attendance::where('user_id', $user->id)->where('log_type', $req->log_type)->latest('created_at')->first();
+        if (!$attend || $attend->created_at < Carbon::now()->subDays(1)->toDateTimeString()) {
 
             if ($user->user_ip === Request()->ip() && $user->user_device === $deviceInfo) {
                 $data->user_id = $user->id;
