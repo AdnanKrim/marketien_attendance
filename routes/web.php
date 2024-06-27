@@ -41,15 +41,16 @@ Route::group(['name'=>'user', 'middleware'=>'userDetail'], function(){
         return view('employeelist',['employee'=>$data]);
     });
     Route::get('/detail/{id}',[EmployeeController::class,'employeeDetail']);
+    // Route::get('/detail/{id}', [EmployeeController::class, 'employeeDetail'])->name('attendance.filter');
     Route::get('/delete/{id}',[EmployeeController::class,'delete']);
 
     Route::get('/attendance', function () {
-        $data = Attendance::orderBy('created_at', 'desc')->get();
+        $data = Attendance::orderBy('created_at', 'desc')->paginate(5);
         return view('attendancelist',['attends'=>$data]);
     });
-    
 
-    
+
+
 });
 Route::get('/clear-cache', function() {
     $exitCode = Artisan::call('optimize:clear');
