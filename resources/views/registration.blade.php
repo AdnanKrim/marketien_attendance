@@ -31,11 +31,17 @@
                                     </div>
                                 @endif
 
-                                @if (Session::get('Fail'))
+                                @if (Session::get('fail'))
                                     <div style="color: red;">
-                                        {{ Session::get('Fail') }}
+                                        {{ Session::get('fail') }}
                                     </div>
                                 @endif
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Token</label>
+                                <input type="text" name="token" class="form-control" placeholder="Enter token">
+                                <span style="color:red;">@error('name'){{ $message }}@enderror</span>
+
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Name</label>

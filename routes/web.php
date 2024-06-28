@@ -21,7 +21,7 @@ use Carbon\Carbon;
 
 Route::get('/', function () {
     $data = Employee::select('name')->get();
-    return view('attendanceform',['names'=>$data]);
+    return view('attendanceform', ['names' => $data]);
 });
 Route::get('/register', function () {
     return view('registration');
@@ -30,50 +30,57 @@ Route::get('/register', function () {
 Route::get('/system', function () {
     return view('adminlogin');
 });
-Route::post('/check',[UserController::class,'userCheck']);
-Route::post('/employee-register',[EmployeeController::class,'employeeRegister']);
-Route::post('/get-attendance',[EmployeeController::class,'getAttendace']);
+Route::post('/check', [UserController::class, 'userCheck']);
+Route::post('/employee-register', [EmployeeController::class, 'employeeRegister']);
+Route::post('/get-attendance', [EmployeeController::class, 'getAttendace']);
 
 
-Route::group(['name'=>'user', 'middleware'=>'userDetail'], function(){
-    Route::get('logout',[UserController::class,'logout']);
+Route::group(['name' => 'user', 'middleware' => 'userDetail'], function () {
+    Route::get('logout', [UserController::class, 'logout']);
     Route::get('/admin', function () {
 
         $data = Employee::all();
-       foreach($data as $emp){
-        $attend = Attendance::where('user_id',$emp->id)->where('log_type','=','login')->latest('created_at')->first();
-        $leave = Attendance::where('user_id',$emp->id)->where('log_type','=','logout')->latest('created_at')->first();
-        $att_date = $attend->created_at->format('Y-m-d');
-        $leave_date = $leave->created_at->format('Y-m-d');
-        $date = Carbon::now()->format('Y-m-d');
-        if($date === $att_date){
-            $emp->present = 1;
-        }else{
-            $emp->present = 0;
-        }
-        if($date === $leave_date){
-            $emp->leave = 1;
-        }else{
-            $emp->leave = 0;
-        }
+        foreach ($data as $emp) {
+            $attend = Attendance::where('user_id', $emp->id)->where('log_type', '=', 'login')->latest('created_at')->first();
+            $leave = Attendance::where('user_id', $emp->id)->where('log_type', '=', 'logout')->latest('created_at')->first();
+            $date = Carbon::now()->format('Y-m-d');
+             if($attend){
+                 $att_date = $attend->created_at->format('Y-m-d');
+                 if ($date === $att_date) {
+                     $emp->present = 1;
+                 } else {
+                     $emp->present = 0;
+                 }
 
-       }
-        return view('employeelist',['employee'=>$data,]);
+             } else{
+                $emp->present = null;
+             }
+             if($leave){
+                 $leave_date = $leave->created_at->format('Y-m-d');
+                 if ($date === $leave_date) {
+                     $emp->leave = 1;
+                 } else {
+                     $emp->leave = 0;
+                 }
+
+             }else{
+                $emp->leave = null;
+             }
+
+            }
+
+        return view('employeelist', ['employee' => $data,]);
     });
-    Route::get('/detail/{id}',[EmployeeController::class,'employeeDetail']);
+    Route::get('/detail/{id}', [EmployeeController::class, 'employeeDetail']);
     // Route::get('/detail/{id}', [EmployeeController::class, 'employeeDetail'])->name('attendance.filter');
-    Route::get('/delete/{id}',[EmployeeController::class,'delete']);
+    Route::get('/delete/{id}', [EmployeeController::class, 'delete']);
 
     Route::get('/attendance', function () {
         $data = Attendance::orderBy('created_at', 'desc')->paginate(5);
-        return view('attendancelist',['attends'=>$data]);
+        return view('attendancelist', ['attends' => $data]);
     });
-
-
-
 });
-Route::get('/clear-cache', function() {
+Route::get('/clear-cache', function () {
     $exitCode = Artisan::call('optimize:clear');
     return "cache cleared";
 });
-

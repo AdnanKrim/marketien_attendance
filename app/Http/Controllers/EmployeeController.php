@@ -122,10 +122,13 @@ class EmployeeController extends Controller
     {
         $req->validate([
             'name' => 'required|unique:employees',
-            'employee_id' => 'required|unique:employees'
+            'employee_id' => 'required|unique:employees',
+            'token'=>'required'
 
         ]);
+        $token = "softplatoon";
         // $macAddress = $this->getMacAddress();
+        if($req->token === $token){
         $data = new Employee();
         $data->name = $req->name;
         $data->employee_id = $req->employee_id;
@@ -138,6 +141,9 @@ class EmployeeController extends Controller
         } else {
             // return back()->with('something went wrong,try again');
             return back()->with('fail', 'something went wrong,try again');
+        }
+        }else{
+            return back()->with('fail', 'You are not authorized to register');
         }
     }
     public function employeeDetail($id)

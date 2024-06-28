@@ -67,15 +67,19 @@
                     <td><i style="color:green; font-size:24px" class="fa fa-check-circle"></i> </td>
                     {{-- <td style="color: green">Present</td> --}}
                     {{-- <td><i style="font-size:24px" class="fa">&#xf058;</i> </td> --}}
+                    @elseif ($emp->present === null)
+                    <td>New</td>
                     @else
                     <td><i class="fa fa-times-circle-o" style="color:red;font-size:24px"></i></td>
                     @endif
 
                     @if($emp->leave === 1)
 
-                    <td><i class="fa fa-times-circle-o" style="color:red;font-size:24px"></i></td>
-                    @else
                     <td><i style="color:green; font-size:24px" class="fa fa-check-circle"></i> </td>
+                    @elseif ($emp->leave === null)
+                    <td>New</td>
+                    @else
+                    <td><i class="fa fa-times-circle-o" style="color:red;font-size:24px"></i></td>
                     @endif
 
                     <td>
