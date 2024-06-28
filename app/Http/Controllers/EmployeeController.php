@@ -58,7 +58,7 @@ class EmployeeController extends Controller
         $deviceInfo = Request()->userAgent();
         $user = Employee::where('name', $req->name)->first();
         $attend = Attendance::where('user_id', $user->id)->where('log_type', $req->log_type)->latest('created_at')->first();
-        if (!$attend || $attend->created_at < Carbon::now()->subDays(1)->toDateTimeString()) {
+        if (!$attend || $attend->created_at < Carbon::now()->subMinutes(900)->toDateTimeString()) {
 
             if ($user->user_ip === Request()->ip() && $user->user_device === $deviceInfo) {
                 $data->user_id = $user->id;
@@ -71,14 +71,15 @@ class EmployeeController extends Controller
                 if ($result) {
                     $date = Carbon::now()->format('Y-m-d');
                     $date_format = Carbon::createFromFormat('Y-m-d', $date);
-                    $count_time = $req->created_at;
+                    // $count_time = $req->created_at;
+                    $count_time = Carbon::now();
                     if ($req->log_type === 'login') {
                         $spec_time_entry = Carbon::createFromTimeString('10:00:00');
                         $spec_entry = $date_format->setTimeFrom($spec_time_entry);
                         if ($count_time > $spec_entry) {
 
-                            $entry_late = $spec_entry->diffInMinutes($count_time);
-                        } else {
+                            $entry_late = $count_time->diffInMinutes($spec_entry);
+                        }else {
                             $entry_late = 0;
                         }
                         Delay::create([
@@ -93,7 +94,6 @@ class EmployeeController extends Controller
                         if ($count_time < $spec_leave) {
 
                             $leave_early = $spec_leave->diffInMinutes($count_time);
-
                         } else {
                             $leave_early = 0;
                         }
@@ -175,7 +175,7 @@ class EmployeeController extends Controller
             // $attendance[] = $attend;
         }
 
-        return view('detailattendance', ['details' => $data, 'test' => $spec_entry]);
+        return view('detailattendance', ['details' => $data]);
     }
 
 

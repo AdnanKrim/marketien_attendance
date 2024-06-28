@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=`, initial-scale=1.0">
     <title>Employee</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <!-- style section  -->
     <style>
         body {
@@ -29,7 +29,7 @@
     </style>
 </head>
 <body>
-    
+
     <div class="sidebar">
         <ul class="nav flex-column">
             <li class="nav-item">
@@ -50,6 +50,8 @@
                     <th scope="col">#</th>
                     <th>EmployeeId</th>
                     <th>EmployeeName</th>
+                    <th>Login</th>
+                    <th>Logout</th>
                     <th>Action</th>
                 </tr>
             </thead>
@@ -59,6 +61,23 @@
                     <th scope="row">{{$loop->iteration}}</th>
                     <td>{{$emp->employee_id}}</td>
                     <td>{{$emp->name}}</td>
+
+                    @if($emp->present === 1)
+
+                    <td><i style="color:green; font-size:24px" class="fa fa-check-circle"></i> </td>
+                    {{-- <td style="color: green">Present</td> --}}
+                    {{-- <td><i style="font-size:24px" class="fa">&#xf058;</i> </td> --}}
+                    @else
+                    <td><i class="fa fa-times-circle-o" style="color:red;font-size:24px"></i></td>
+                    @endif
+
+                    @if($emp->leave === 1)
+
+                    <td><i class="fa fa-times-circle-o" style="color:red;font-size:24px"></i></td>
+                    @else
+                    <td><i style="color:green; font-size:24px" class="fa fa-check-circle"></i> </td>
+                    @endif
+
                     <td>
                         <a href="/detail/{{$emp['id']}}" class="btn btn-success btn-sm">
                             <i class="fa fa-edit">Details</i>
@@ -68,11 +87,11 @@
                         </a>
 
                     </td>
-                    
+
                 </tr>
                 @endforeach
-                
-                
+
+
                 <!-- Add more rows as needed -->
             </tbody>
         </table>

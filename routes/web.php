@@ -6,6 +6,7 @@ use App\Http\Controllers\EmployeeController;
 use App\Models\Employee;
 use App\Models\Attendance;
 use Illuminate\Support\Facades\Artisan;
+use Carbon\Carbon;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,8 +38,27 @@ Route::post('/get-attendance',[EmployeeController::class,'getAttendace']);
 Route::group(['name'=>'user', 'middleware'=>'userDetail'], function(){
     Route::get('logout',[UserController::class,'logout']);
     Route::get('/admin', function () {
+
         $data = Employee::all();
-        return view('employeelist',['employee'=>$data]);
+       foreach($data as $emp){
+        $attend = Attendance::where('user_id',$emp->id)->where('log_type','=','login')->latest('created_at')->first();
+        $leave = Attendance::where('user_id',$emp->id)->where('log_type','=','logout')->latest('created_at')->first();
+        $att_date = $attend->created_at->format('Y-m-d');
+        $leave_date = $leave->created_at->format('Y-m-d');
+        $date = Carbon::now()->format('Y-m-d');
+        if($date === $att_date){
+            $emp->present = 1;
+        }else{
+            $emp->present = 0;
+        }
+        if($date === $leave_date){
+            $emp->leave = 1;
+        }else{
+            $emp->leave = 0;
+        }
+
+       }
+        return view('employeelist',['employee'=>$data,]);
     });
     Route::get('/detail/{id}',[EmployeeController::class,'employeeDetail']);
     // Route::get('/detail/{id}', [EmployeeController::class, 'employeeDetail'])->name('attendance.filter');
