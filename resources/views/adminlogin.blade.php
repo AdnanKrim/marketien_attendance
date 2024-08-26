@@ -11,6 +11,11 @@
     <link rel="stylesheet" href="css/style.css">
 
 </head>
+<style>
+label{
+    color: black;
+}
+</style>
 
 <body>
     <div class="container">
@@ -47,7 +52,7 @@
                                 <input type="password" name="password" class="form-control" placeholder="Enter Password">
 
                             </div>
-                            
+
 
 
 

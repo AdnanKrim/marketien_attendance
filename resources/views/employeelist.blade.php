@@ -30,6 +30,7 @@
 </head>
 <body>
 
+
     <div class="sidebar">
         <ul class="nav flex-column">
             <li class="nav-item">
@@ -41,6 +42,19 @@
         </ul>
     </div>
     <div class="content">
+        <div style="background-color:green;">
+            @if (Session::get('success'))
+                <div style="color:black; margin: 1rem; ">
+                    {{ Session::get('success') }}
+                </div>
+            @endif
+
+            @if (Session::get('fail'))
+                <div style="color: rgb(238, 255, 0);">
+                    {{ Session::get('fail') }}
+                </div>
+            @endif
+        </div>
         {{-- <button class="btn btn-danger logout-btn">Logout</button> --}}
         <a class="btn btn-danger logout-btn" href="/logout">Logout</a>
         <h2>Employee List</h2>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Employee;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
@@ -40,5 +41,20 @@ class UserController extends Controller
             'ip'=>$user
 
             ]);
+    }
+    public function updateIp(){
+        $data = Employee::all();
+        foreach($data as $emp){
+            $emp->user_ip = Request()->ip();
+            $result = $emp->save();
+        }
+        if($result){
+            return back()->with('success','update Ip successfully');
+        }else{
+            return back()->with('fail','something went wrong');
+        }
+    }
+    public function updateAgent(){
+
     }
 }

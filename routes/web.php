@@ -26,6 +26,9 @@ Route::get('/', function () {
 Route::get('/register', function () {
     return view('registration');
 });
+Route::get('/update-form', function () {
+    return view('updateAgent');
+});
 
 Route::get('/system', function () {
     return view('adminlogin');
@@ -81,6 +84,8 @@ Route::group(['name' => 'user', 'middleware' => 'userDetail'], function () {
         return view('attendancelist', ['attends' => $data]);
     });
     Route::get('/excel-sheet/{id}',[EmployeeController::class,'excelSheet']);
+    Route::get('/update-ip',[UserController::class,'updateIp']);
+
 });
 Route::get('/clear-cache', function () {
     $exitCode = Artisan::call('optimize:clear');

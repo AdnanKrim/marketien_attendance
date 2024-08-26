@@ -26,7 +26,7 @@
                             @csrf
                             <div style="background-color:green;">
                                 @if (Session::get('success'))
-                                    <div style="color:black; margin: 1rem; ">
+                                    <div style="color:rgb(238, 229, 229); margin: 1rem; ">
                                         {{ Session::get('success') }}
                                     </div>
                                 @endif
@@ -48,9 +48,9 @@
                                     {{-- <option value="2">Two</option>
                                     <option value="3">Three</option> --}}
                                 </select>
-                                
+
                             </div>
-                
+
                                 <span style="color:red;">
                                     @error('name')
                                         {{ $message }}
@@ -73,7 +73,7 @@
                                     <label class="form-check-label" for="inlineRadio2"
                                         style="color: rgb(26, 26, 22); font-size: 20px">logout</label>
                                 </div>
-                                
+
                             </div>
                             <span style="color:red;">
                                 @error('log_type')
@@ -93,7 +93,7 @@
         </div>
         {{-- <div style="display:flex ; justify-content:center; margin-top: 5rem ;">
 
-            
+
             <a href="/register" class="btn btn-secondary">Registration</a>
         </div> --}}
     </div>

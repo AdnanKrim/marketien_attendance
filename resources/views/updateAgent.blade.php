@@ -12,9 +12,9 @@
 
 </head>
 <style>
-label{
-    color: black;
-}
+    label{
+        color: black;
+    }
 </style>
 
 <body>
@@ -23,15 +23,15 @@ label{
         <div class="row">
             <div class="col-md-6 mx-auto">
                 <div class="card" style="margin-top: 3rem;">
-                    <div class="card-header">Employee Registration Form</div>
+                    <div class="card-header">Employee Update Form</div>
                     <div class="card-body" style="">
                         <img src="images/Marketien-Logo.png" class="img
                         " alt="">
-                        <form action="/employee-register" method="POST">
+                        <form action="/update-agent" method="POST">
                             @csrf
                             <div style="background-color:green;">
                                 @if (Session::get('success'))
-                                    <div style="color:black; margin: 1rem; ">
+                                    <div style="color:rgb(251, 248, 248); margin: 1rem; ">
                                         {{ Session::get('success') }}
                                     </div>
                                 @endif
@@ -49,12 +49,6 @@ label{
 
                             </div>
                             <div class="form-group">
-                                <label for="exampleInputEmail1">Name</label>
-                                <input type="text" name="name" class="form-control" placeholder="Enter name">
-                                <span style="color:red;">@error('name'){{ $message }}@enderror</span>
-
-                            </div>
-                            <div class="form-group">
                                 <label for="exampleInputEmail1">Employee ID</label>
                                 <input type="number" name="employee_id" class="form-control">
                                 <span style="color:red;">@error('employee_id'){{ $message }}@enderror</span>
@@ -66,7 +60,7 @@ label{
                             <div style="display:flex ; justify-content:center; margin-top: 3rem ;">
 
                                 <button type="submit" class="btn btn-primary" style=""
-                                    class="btn">Register</button>
+                                    class="btn">Update</button>
                             </div>
                         </form>
                     </div>
