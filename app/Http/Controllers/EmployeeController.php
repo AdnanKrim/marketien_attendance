@@ -79,7 +79,7 @@ class EmployeeController extends Controller
                         if ($count_time > $spec_entry) {
 
                             $entry_late = $count_time->diffInMinutes($spec_entry);
-                        }else {
+                        } else {
                             $entry_late = 0;
                         }
                         Delay::create([
@@ -123,26 +123,26 @@ class EmployeeController extends Controller
         $req->validate([
             'name' => 'required|unique:employees',
             'employee_id' => 'required|unique:employees',
-            'token'=>'required'
+            'token' => 'required'
 
         ]);
         $token = "softplatoon";
         // $macAddress = $this->getMacAddress();
-        if($req->token === $token){
-        $data = new Employee();
-        $data->name = $req->name;
-        $data->employee_id = $req->employee_id;
-        $data->user_ip = Request()->ip();
-        $data->user_device = Request()->userAgent();
-        $result = $data->save();
-        if ($result) {
-            return back()->with('success', 'Your Regitration has been complited');
-            //  return back()->with('Your Attendance has counted Successfully');
+        if ($req->token === $token) {
+            $data = new Employee();
+            $data->name = $req->name;
+            $data->employee_id = $req->employee_id;
+            $data->user_ip = Request()->ip();
+            $data->user_device = Request()->userAgent();
+            $result = $data->save();
+            if ($result) {
+                return back()->with('success', 'Your Regitration has been complited');
+                //  return back()->with('Your Attendance has counted Successfully');
+            } else {
+                // return back()->with('something went wrong,try again');
+                return back()->with('fail', 'something went wrong,try again');
+            }
         } else {
-            // return back()->with('something went wrong,try again');
-            return back()->with('fail', 'something went wrong,try again');
-        }
-        }else{
             return back()->with('fail', 'You are not authorized to register');
         }
     }
@@ -181,7 +181,7 @@ class EmployeeController extends Controller
             // $attendance[] = $attend;
         }
 
-        return view('detailattendance', ['details' => $data]);
+        return view('detailattendance', ['details' => $data,'employee_id'=>$id]);
     }
 
 
@@ -192,5 +192,77 @@ class EmployeeController extends Controller
         $data = Employee::find($id);
         $data->delete();
         return redirect('admin');
+    }
+
+
+    public function findDateHelper(int $year, int $month)
+    {
+
+        $daysInMonth = Carbon::createFromDate($year, $month, 1)->daysInMonth;
+
+        $days = [];
+        for ($day = 1; $day <= $daysInMonth; $day++) {
+            $date = Carbon::createFromDate($year, $month, $day);
+            $days[] = [
+                'date' => $date->format('Y-m-d'),
+                'weekday' => $date->format('l') // 'l' format gives full weekday name
+            ];
+        }
+
+        return $days;
+    }
+
+    function excelSheet($id)
+    {
+        $year = Carbon::now()->format('Y');
+        // $month = Carbon::now()->format('m');
+        $month = Carbon::now()->subMonth()->format('m');
+        $mName = Carbon::now()->subMonth()->format('F');
+        $emp = Employee::find($id);
+        $daysInMonth = $this->findDateHelper($year, $month);
+        foreach ($daysInMonth as &$day) { // Use &$day to modify the original array elements
+            $data = Attendance::where('user_id', $id)
+                ->where('date', $day['date']) // Access 'date' as array key
+                ->get();
+                $day['login'] = null;
+                $day['login_delay'] = null;
+                $day['logout'] = null;
+                $day['logout_early'] = null;
+
+            if ($data) {
+
+
+                foreach ($data as $type) {
+                    $delay = Delay::where('user_id', $id)
+                        ->where('date', $type->date)
+                        ->where('log_type', $type->log_type)
+                        ->first();
+
+                    if ($type->log_type === 'login') {
+
+                        $day['login'] = $type->time;
+                        $day['login_delay'] = $delay->delay;
+                    }
+                    if ($type->log_type === 'logout') {
+                        $day['logout'] = $type->time;
+                        $day['logout_early'] = $delay->delay;
+                    }
+                }
+            }
+        }
+        return view('attendanceSheet',
+         [
+            'attendance' => $daysInMonth,
+            'employee' => $emp,
+            'month'  => $mName,
+            'issue_date'=>date('Y-m-d')
+
+
+         ]);
+        // return response([
+        //     'attendence' => $daysInMonth,
+        //     'employee' => $emp,
+        //     'month'  => $mName
+        // ]);
     }
 }

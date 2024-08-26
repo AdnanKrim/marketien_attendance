@@ -32,4 +32,13 @@ class UserController extends Controller
         return redirect('system');
       }
     }
+    public function userAgent(){
+        $data = Request()->userAgent();
+        $user = Request()->ip();
+        return response([
+            'userAgent'=>$data,
+            'ip'=>$user
+
+            ]);
+    }
 }

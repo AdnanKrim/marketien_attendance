@@ -29,6 +29,28 @@
         .row > .col {
             padding: 10px;
         }
+        .submit-button {
+            display: block;
+            width: 20%;
+            padding: 10px;
+            background: linear-gradient(to top, #3bb890, #114070);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            text-decoration: none;
+            text-align: center;
+        }
+
+        .submit-button:hover {
+            background: linear-gradient(to bottom, #3bb890, #114070);
+        }
+        /* .invoice-footer{
+            display: flex;
+            justify-content: center;
+
+        } */
     </style>
 </head>
 <body>
@@ -126,6 +148,9 @@
                     </tbody>
                 </table>
             </div>
+        </div>
+        <div class="invoice-footer">
+            <a id="rep" href="/excel-sheet/{{$employee_id}}" class="submit-button btn_print"> Detail In Prev. Month </a>
         </div>
     </div>
 </body>

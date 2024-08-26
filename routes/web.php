@@ -30,6 +30,7 @@ Route::get('/register', function () {
 Route::get('/system', function () {
     return view('adminlogin');
 });
+Route::get('/user-agent',[UserController::class,'userAgent']);
 Route::post('/check', [UserController::class, 'userCheck']);
 Route::post('/employee-register', [EmployeeController::class, 'employeeRegister']);
 Route::post('/get-attendance', [EmployeeController::class, 'getAttendace']);
@@ -79,6 +80,7 @@ Route::group(['name' => 'user', 'middleware' => 'userDetail'], function () {
         $data = Attendance::orderBy('created_at', 'desc')->paginate(5);
         return view('attendancelist', ['attends' => $data]);
     });
+    Route::get('/excel-sheet/{id}',[EmployeeController::class,'excelSheet']);
 });
 Route::get('/clear-cache', function () {
     $exitCode = Artisan::call('optimize:clear');
