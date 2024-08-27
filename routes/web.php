@@ -27,8 +27,10 @@ Route::get('/register', function () {
     return view('registration');
 });
 Route::get('/update-form', function () {
-    return view('updateAgent');
+    $data = Employee::all();
+    return view('updateAgent',['names' => $data]);
 });
+Route::post('/update-agent',[UserController::class,'updateAgent']);
 
 Route::get('/system', function () {
     return view('adminlogin');

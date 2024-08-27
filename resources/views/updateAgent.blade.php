@@ -48,10 +48,18 @@
                                 <span style="color:red;">@error('name'){{ $message }}@enderror</span>
 
                             </div>
-                            <div class="form-group">
-                                <label for="exampleInputEmail1">Employee ID</label>
-                                <input type="number" name="employee_id" class="form-control">
-                                <span style="color:red;">@error('employee_id'){{ $message }}@enderror</span>
+
+                            <div class="input-group mb-3" style="margin : 1.5rem 0rem ;">
+                                <label class="input-group-text" for="inputGroupSelect01">Name</label>
+                                <select class="form-select" id="inputGroupSelect01" name="id">
+                                    <option selected>select your name</option>
+                                    @foreach ($names as $name)
+                                        <option value="{{ $name->id }}">{{ $name->name }}</option>
+                                    @endforeach
+
+                                    {{-- <option value="2">Two</option>
+                                    <option value="3">Three</option> --}}
+                                </select>
 
                             </div>
 

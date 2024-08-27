@@ -54,7 +54,20 @@ class UserController extends Controller
             return back()->with('fail','something went wrong');
         }
     }
-    public function updateAgent(){
+    public function updateAgent(Request $req){
+     $data = Employee::where('id',$req->id)->first();
+     $token = 'softplatoon';
+     if($data->user_ip === Request()->ip() && $token === $req->token){
+         $data->user_device = Request()->userAgent();
+         $result = $data->save();
+         if($result){
+            return back()->with('success','update information successfully');
+        }else{
+            return back()->with('fail','something went wrong');
+        }
+     }else{
+        return back()->with('fail','token or location is invalid');
+     }
 
     }
 }
