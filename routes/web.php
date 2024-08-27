@@ -85,7 +85,7 @@ Route::group(['name' => 'user', 'middleware' => 'userDetail'], function () {
         $data = Attendance::orderBy('created_at', 'desc')->paginate(5);
         return view('attendancelist', ['attends' => $data]);
     });
-    Route::get('/excel-sheet/{id}',[EmployeeController::class,'excelSheet']);
+    Route::get('/excel-sheet/{id}/{month}',[EmployeeController::class,'excelSheet']);
     Route::get('/update-ip',[UserController::class,'updateIp']);
 
 });

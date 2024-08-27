@@ -212,12 +212,15 @@ class EmployeeController extends Controller
         return $days;
     }
 
-    function excelSheet($id)
+    function excelSheet($id,$month)
     {
         $year = Carbon::now()->format('Y');
         // $month = Carbon::now()->format('m');
-        $month = Carbon::now()->subMonth()->format('m');
-        $mName = Carbon::now()->subMonth()->format('F');
+        // $month = Carbon::now()->subMonth()->format('m');
+        // $month = 8;
+        $date = Carbon::createFromFormat('!m', $month);
+        // $mName = Carbon::now()->subMonth()->format('F');
+        $mName = $date->format('F');
         $emp = Employee::find($id);
         $daysInMonth = $this->findDateHelper($year, $month);
         foreach ($daysInMonth as &$day) { // Use &$day to modify the original array elements
