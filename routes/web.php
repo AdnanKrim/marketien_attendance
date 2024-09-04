@@ -93,3 +93,6 @@ Route::get('/clear-cache', function () {
     $exitCode = Artisan::call('optimize:clear');
     return "cache cleared";
 });
+
+//Barcode generator
+Route::get('/barcode', [UserController::class, 'generateBarcode']);
